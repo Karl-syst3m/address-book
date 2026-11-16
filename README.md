@@ -1,14 +1,9 @@
-# 通讯录 · Address Book
 
-一个用于软件工程课程作业的通讯录 Web 应用：支持**收藏联系人**、**一个联系人挂多条多种类型的联系方式**、**Excel 导入 / 导出 / 模板下载**，并将首页仪表、搜索、筛选、排序、卡片编辑等交互整合在单页界面中。
+## 在线访问（云部署）
 
-技术栈固定为纯 JavaScript（ESM，无构建步骤）：
-
-- 后端：Node.js + Express 4
-- 数据库：Node.js 内置 `node:sqlite` 的 `DatabaseSync`（无需 better-sqlite3 / sqlite3 等原生依赖）
-- Excel：ExcelJS
-- 上传：Multer（内存存储）
-- 前端：原生 HTML + CSS + JavaScript，无框架、无 CDN、无构建
+- 演示地址：<http://103.236.57.2:3000>
+- 部署方式与运维命令见 [docs/DEPLOY.md](docs/DEPLOY.md)
+- 界面截图见 [docs/screenshots/](docs/screenshots/)
 
 ## 功能清单
 
