@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="通讯录：收藏联系人、多种联系方式、Excel 导入导出">
+  <title>通讯录 · Address Book</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%232563eb'/%3E%3Cpath d='M40 46v-4a8 8 0 0 0-8-8h-8a8 8 0 0 0-8 8v4' fill='none' stroke='white' stroke-width='4' stroke-linecap='round'/%3E%3Ccircle cx='28' cy='22' r='7' fill='none' stroke='white' stroke-width='4'/%3E%3C/svg%3E">
+</head>
+<body>
+  <svg class="svg-sprite" aria-hidden="true" focusable="false">
+    <symbol id="i-contacts" viewBox="0 0 24 24">
+      <path d="M16 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/>
+      <circle cx="9.5" cy="7" r="4"/>
+      <path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+    </symbol>
+    <symbol id="i-search" viewBox="0 0 24 24">
+      <circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>
+    </symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/>
+    </symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24">
+      <rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>
+    </symbol>
+    <symbol id="i-wechat" viewBox="0 0 24 24">
+      <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5Z"/>
+    </symbol>
+    <symbol id="i-qq" viewBox="0 0 24 24">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/>
+      <path d="M8 9h8M8 13h5"/>
+    </symbol>
+    <symbol id="i-address" viewBox="0 0 24 24">
+      <path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.8"/>
+    </symbol>
+    <symbol id="i-other" viewBox="0 0 24 24">
+      <path d="M10 13a5 5 0 0 0 7.07 0l1.42-1.42a5 5 0 0 0-7.07-7.07L10.3 5.63"/>
+      <path d="M14 11a5 5 0 0 0-7.07 0L5.51 12.4a5 5 0 0 0 7.07 7.07l1.1-1.1"/>
+    </symbol>
+    <symbol id="i-star" viewBox="0 0 24 24">
+      <path d="m12 3 2.7 5.47 6.04.88-4.37 4.26 1.03 6.02L12 16.79l-5.4 2.84 1.03-6.02L3.26 9.35l6.04-.88L12 3Z"/>
+    </symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24">
+      <path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/>
+    </symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24">
+      <path d="M3 6h18"/><path d="M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2"/>
+      <path d="m19 6-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/>
+    </symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24">
+      <path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 19h16"/>
+    </symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24">
+      <path d="M12 16V4"/><path d="m6 10 6-6 6 6"/><path d="M4 20h16"/>
+    </symbol>
+    <symbol id="i-file" viewBox="0 0 24 24">
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/>
+      <path d="M14 2v6h6"/><path d="M8 13h8M8 17h8M12 13v6"/>
+    </symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24">
+      <rect width="14" height="14" x="8" y="8" rx="2"/>
+      <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
+    </symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/>
+    </symbol>
+    <symbol id="i-info" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/>
+    </symbol>
+    <symbol id="i-bookmark" viewBox="0 0 24 24">
+      <path d="M19 21l-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2Z"/>
+    </symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24">
+      <path d="M3 12a9 9 0 0 1 15.5-6.2L21 8"/><path d="M21 3v5h-5"/>
+      <path d="M21 12a9 9 0 0 1-15.5 6.2L3 16"/><path d="M3 21v-5h5"/>
+    </symbol>
+    <symbol id="i-inbox" viewBox="0 0 24 24">
+      <path d="M22 12h-6l-2 3h-4l-2-3H2"/>
+      <path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11Z"/>
+    </symbol>
+  </svg>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-mark"><svg class="icon" aria-hidden="true"><use href="#i-contacts"></use></svg></div>
+        <div class="brand-text">
+          <h1>通讯录</h1>
+          <p>Address Book</p>
+        </div>
+      </div>
+
+      <div class="stats" aria-label="通讯录统计">
+        <div class="stat"><span class="stat-value" id="statContacts">0</span><span class="stat-label">总联系人</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-value" id="statBookmarked">0</span><span class="stat-label">收藏数</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-value" id="statMethods">0</span><span class="stat-label">联系方式</span></div>
+      </div>
+
+      <div class="search-box">
+        <svg class="icon search-icon" aria-hidden="true"><use href="#i-search"></use></svg>
+        <input id="searchInput" type="search" placeholder="搜索姓名、公司或联系方式…" autocomplete="off" aria-label="搜索联系人">
+        <button id="searchClear" class="search-clear" type="button" aria-label="清空搜索" hidden>
+          <svg class="icon" aria-hidden="true"><use href="#i-close"></use></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="toolbar" aria-label="筛选与导入导出工具">
+      <div class="toolbar-left">
+        <div class="segmented" role="group" aria-label="联系人筛选">
+          <button class="seg-btn active" type="button" data-filter="all">全部 <span class="seg-count" id="countAll">0</span></button>
+          <button class="seg-btn" type="button" data-filter="bookmarked">
+            <svg class="icon icon-sm" aria-hidden="true"><use href="#i-star"></use></svg>
+            仅收藏 <span class="seg-count" id="countFav">0</span>
+          </button>
+        </div>
+        <label class="sort-control">
+          <span>排序</span>
+          <select id="sortSelect">
+            <option value="name">按姓名</option>
+            <option value="updated">最近更新</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="toolbar-right">
+        <button class="btn btn-ghost" id="templateBtn" type="button">
+          <svg class="icon" aria-hidden="true"><use href="#i-download"></use></svg>下载导入模板
+        </button>
+        <button class="btn btn-ghost" id="exportBtn" type="button">
+          <svg class="icon" aria-hidden="true"><use href="#i-file"></use></svg>导出 Excel
+        </button>
+        <button class="btn btn-primary" id="importBtn" type="button">
+          <svg class="icon" aria-hidden="true"><use href="#i-upload"></use></svg>导入 Excel
+        </button>
+        <input id="importInput" type="file" accept=".xlsx,.xls" hidden>
+      </div>
+    </section>
+
+    <section id="importResult" class="import-result" hidden aria-live="polite"></section>
+
+    <div class="list-head">
+      <span id="listMeta" class="list-meta">正在加载…</span>
+      <span class="list-hint">点击星标收藏 · 卡片底部可编辑或删除</span>
+    </div>
+
+    <div id="loading" class="loading"><span class="spinner"></span>正在加载通讯录…</div>
+    <div id="contactList" class="contact-grid" aria-live="polite"></div>
+
+    <section id="emptyState" class="empty-state" hidden>
+      <div class="empty-illustration">
+        <svg class="icon" aria-hidden="true"><use href="#i-inbox"></use></svg>
+      </div>
+      <h2 id="emptyTitle">通讯录还是空的</h2>
+      <p id="emptyText">添加第一位联系人，开始整理你的联系人。</p>
+      <button class="btn btn-primary" id="emptyAction" type="button">新增联系人</button>
+    </section>
+  </main>
+
+  <button class="fab" id="fabAdd" type="button" aria-label="新增联系人">
+    <svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg><span>新增联系人</span>
+  </button>
+
+  <div class="modal-overlay" id="modalOverlay" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <form id="contactForm" novalidate>
+        <div class="modal-head">
+          <div>
+            <h2 id="modalTitle">新增联系人</h2>
+            <p id="modalSubtitle">填写基本信息与联系方式</p>
+          </div>
+          <button class="icon-btn" id="modalClose" type="button" aria-label="关闭弹窗">
+            <svg class="icon" aria-hidden="true"><use href="#i-close"></use></svg>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <div class="field-row">
+            <label class="field">
+              <span class="field-label">姓名 <em>*</em></span>
+              <input id="nameInput" name="name" type="text" maxlength="100" placeholder="例如：张三" autocomplete="off">
+            </label>
+            <label class="field">
+              <span class="field-label">公司</span>
+              <input id="companyInput" name="company" type="text" maxlength="100" placeholder="例如：云帆科技" autocomplete="off">
+            </label>
+          </div>
+
+          <label class="field">
+            <span class="field-label">备注</span>
+            <textarea id="noteInput" name="note" maxlength="2000" rows="2" placeholder="补充说明，例如：周一上午通常有空"></textarea>
+          </label>
+
+          <div class="methods-editor">
+            <div class="methods-head">
+              <div>
+                <h3>联系方式</h3>
+                <p>可添加多行：电话、邮箱、微信、QQ、地址或其他</p>
+              </div>
+              <button class="btn btn-soft btn-sm" id="addMethodBtn" type="button">
+                <svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg>添加一行
+              </button>
+            </div>
+            <div id="methodRows" class="method-rows"></div>
+          </div>
+        </div>
+
+        <div class="modal-foot">
+          <label class="bookmark-toggle">
+            <input id="bookmarkInput" type="checkbox">
+            <span class="switch" aria-hidden="true"></span>
+            收藏该联系人
+          </label>
+          <div class="modal-actions">
+            <button class="btn btn-ghost" id="cancelBtn" type="button">取消</button>
+            <button class="btn btn-primary" id="saveBtn" type="submit">保存联系人</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="toastStack" class="toast-stack" aria-live="polite" aria-atomic="false"></div>
+
+  <script src="/app.js" type="module"></script>
+</body>
+</html>
