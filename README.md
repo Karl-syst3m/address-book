@@ -4,6 +4,7 @@
 - 演示地址：<http://103.236.57.2:3000>
 - 部署方式与运维命令见 [docs/DEPLOY.md](docs/DEPLOY.md)
 - 界面截图见 [docs/screenshots/](docs/screenshots/)
+- 代码规范见 [docs/CODE_STYLE.md](docs/CODE_STYLE.md)
 
 ## 功能清单
 
