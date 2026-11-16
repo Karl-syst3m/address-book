@@ -326,11 +326,13 @@ export async function importWorkbook(buffer) {
       });
 
       const existing = findDuplicateContact(normalized.name, normalized.methods);
+      const favoriteText = String(values.favorite ?? '').trim();
       if (existing) {
         const merged = mergeImportedContact(existing.id, {
           company: normalized.company,
           note: normalized.note,
-          bookmarked: parseFavorite(values.favorite),
+          // 收藏列为空时视为「文件未表态」，保留原有收藏状态，避免误清除
+          bookmarked: favoriteText ? parseFavorite(favoriteText) : undefined,
           methods: normalized.methods,
         });
         if (merged.changed) result.updated += 1;

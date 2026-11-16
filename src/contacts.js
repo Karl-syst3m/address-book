@@ -338,9 +338,13 @@ export function mergeImportedContact(id, data) {
   const existing = getContact(id);
   if (!existing) return { contact: null, changed: false };
 
-  const company = existing.company || data.company || '';
-  const note = existing.note || data.note || '';
-  const bookmarked = existing.bookmarked || Boolean(data.bookmarked);
+  // 导入语义：Excel 里填了的标量字段以文件为准（覆盖旧值）；留空则保留原值
+  const incoming = (value) => String(value ?? '').trim();
+  const company = incoming(data.company) || existing.company || '';
+  const note = incoming(data.note) || existing.note || '';
+  const bookmarked = typeof data.bookmarked === 'boolean'
+    ? Boolean(data.bookmarked)
+    : Boolean(existing.bookmarked);
   const methods = data.methods || [];
 
   const existingKeys = new Set(existing.methods.map((method) => `${method.type}\u0000${method.value}`));
