@@ -48,7 +48,7 @@ The screenshot shows the page one commit before this text was added, so the real
 
 | Contributor | Account | Commits |
 | --- | --- | --- |
-| Fang Jiawei (832401110) | Karl-syst3m | 11 |
+| Fang Jiawei (832401110) | Karl-syst3m | 12 |
 
 The interesting part of the history, oldest first:
 
@@ -101,6 +101,16 @@ Version two matched on "name plus first phone or email" and merged, but only fil
 Version three treats company and note as coming from the file: if the cell has something it overwrites, if the cell is empty the old value stays. An empty bookmark column no longer clears existing bookmarks, which version two did.
 
 Rows are handled one at a time and errors are collected instead of aborting the file, so one bad row does not kill the import. The response is `{created, updated, skipped, errors}` and the UI shows the three numbers. Re-importing an export gives `created 0, skipped 8`, so nobody is duplicated.
+
+### Themes
+
+The page ships with three colour schemes and a small switcher in the header: the default blue, a warm paper look, and a dark one. The choice is kept in `localStorage` and applied by an inline script before first paint, so a reload does not flash the default colours first.
+
+It is all CSS variables: one block redefines the palette, the components never knew a theme existed. The two headaches were the translucent header (a white 82% overlay that turned into light text on a light band in dark mode) and a pile of hard-coded light tints that had to become variables first. I only caught the header problem because I looked at the dark screenshot.
+
+![Paper theme](screenshots/06-主题-纸墨.png)
+
+![Dark theme](screenshots/07-主题-夜间.png)
 
 ### Deployment
 
@@ -168,7 +178,7 @@ Rough numbers from timestamps and how long things felt, not stopwatch data.
 | --- | --- | --- |
 | Markdown post, repo link, code standard link | 10 | This file; links in section 2 |
 | Notes, screenshots, division of work | 20 | Section 4, screenshots above, section 6 |
-| Page style | 10 | Card layout, icons per method type, responsive, empty state |
+| Page style | 10 | Card layout, icons per method type, responsive, empty state, three colour themes |
 | Bookmarks | 25 | Star toggle, filter, counters |
 | Multiple methods | 10 | Six types, labels, primary flag, rows can be added or removed |
 | Import and export | 25 | 14-column export, dedupe on import with created/updated/skipped |

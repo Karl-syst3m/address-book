@@ -703,6 +703,32 @@ document.addEventListener('keydown', (event) => {
 
 // ---------- 启动 ----------
 
+
+/* ---------- 主题切换 ---------- */
+
+const THEME_KEY = 'address-book-theme';
+const THEMES = ['classic', 'paper', 'midnight'];
+
+function applyTheme(name) {
+  const theme = THEMES.includes(name) ? name : 'classic';
+  document.documentElement.setAttribute('data-theme', theme);
+  try {
+    localStorage.setItem(THEME_KEY, theme);
+  } catch (error) { /* 忽略：无痕模式写不进去也不影响本次生效 */ }
+
+  document.querySelectorAll('.theme-dot').forEach((dot) => {
+    const isCurrent = dot.dataset.theme === theme;
+    dot.classList.toggle('active', isCurrent);
+    dot.setAttribute('aria-checked', isCurrent ? 'true' : 'false');
+  });
+}
+
+document.querySelectorAll('.theme-dot').forEach((dot) => {
+  dot.addEventListener('click', () => applyTheme(dot.dataset.theme));
+});
+
+applyTheme(document.documentElement.getAttribute('data-theme') || 'classic');
+
 function init() {
   syncFilterUI();
   loadContacts();
